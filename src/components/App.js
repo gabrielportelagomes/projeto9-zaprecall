@@ -1,6 +1,6 @@
-/* import { useState } from "react" */
+import { useState } from "react"
 import GlobalStyle from "../assets/css/GlobalStyle.js"
-import styled from "styled-components"
+import styled, {css} from "styled-components"
 import icone_certo from "../assets/img/icone_certo.png"
 import icone_erro from "../assets/img/icone_erro.png"
 import icone_quase from "../assets/img/icone_quase.png"
@@ -9,6 +9,7 @@ import party from "../assets/img/party.png"
 import sad from "../assets/img/sad.png"
 import seta_play from "../assets/img/seta_play.png"
 import seta_virar from "../assets/img/seta_virar.png"
+
 
 function App() {
   const deck = [
@@ -61,11 +62,27 @@ function App() {
     </>
   )
 
-  function Card({index}) {
+  function Card({question, answer, index}) {
+    const [cardText, setCardText] = useState("Pergunta " + index)
+    const [open, setOpen] = useState(false)
+    const [icon, setIcon] = useState(seta_play)
+    
+
+    function play() {
+      if(icon === seta_play){
+        setIcon(seta_virar)
+        setCardText(question)
+        setOpen(true)
+      } else if (icon === seta_virar) {
+        setIcon(null)
+        setCardText(answer)
+      }
+    }
+    
     return (
-      <CardStyle>
-        <p>{"Pergunta " + index}</p>
-        <img src={seta_play} alt="play button"/>
+      <CardStyle open={open} icon={icon}>
+        <p>{cardText}</p>
+        <img src={icon} alt="play button" onClick={() => play()}/>
       </CardStyle>
     )
   }
@@ -110,6 +127,7 @@ const CardsContainer = styled.div`
   }
         `
 const CardStyle = styled.div`
+        ${props => props.open === false && css`
         width: 300px;
         height: 65px;
         background-color: #ffffff;
@@ -127,7 +145,41 @@ const CardStyle = styled.div`
           font-size: 16px;
           line-height: 19px;
           color: #333333;
+        }`
+      }
+      ${props => props.open === true && css`
+      width: 300px;
+      margin: 25px;
+      padding: 15px;
+      min-height: 100px;
+      background: #FFFFD5;
+      box-shadow: 0px 4px 5px rgba(0, 0, 0, 0.15);
+      border-radius: 5px;
+      font-family: 'Recursive';
+      font-style: normal;
+      font-weight: 400;
+      font-size: 18px;
+      line-height: 22px;
+      color: #333333;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+        p {
+          font-family: "Recursive";
+          font-style: normal;
+          font-weight: 700;
+          font-size: 16px;
+          line-height: 19px;
+          color: #333333;
         }
+        img{
+          position: absolute;
+          bottom: 10px;
+          right: 10px;
+          display:  ${props => props.icon === null ? "none" : "inicial"}
+        }`
+      }
         `
 const Footer = styled.div`
         width: 100%;
@@ -164,16 +216,18 @@ const ButtonsContainer = styled.div`
           color: #ffffff;
           background: blue;
           border-radius: 5px;
-          border: 1px solid blue;
           padding: 5px;
           &:nth-child(n + 1) {
             background-color: #FF3030;
+            border: 1px solid #FF3030;
           }
           &:nth-child(n + 2) {
             background-color: #FF922E;
+            border: 1px solid #FF922E;
           }
           &:nth-child(n + 3) {
             background-color: #2FBE34;
+            border: 1px solid #2FBE34;
           }
         }
         `
