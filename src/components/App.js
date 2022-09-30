@@ -18,7 +18,7 @@ import DECK1 from "../DECK1.js"
 function App() {
   const numberOfQuestions = DECK1.length
   const [arrayForgotIt, setArrayForgotIt] = useState([])
-  const [arrayAlmostForget, setArrayAlmostForget] = useState([])
+  const [arrayAlmostForgot, setArrayAlmostForgot] = useState([])
   const [arrayZap, setArrayZap] = useState([])
   const [currentCard, setCurrentCard] = useState()
   const [arrayAnswered, setArrayAnswered] = useState([])
@@ -41,7 +41,7 @@ function App() {
             currentCard={currentCard}
             setCurrentCard={setCurrentCard}
             arrayForgotIt={arrayForgotIt}
-            arrayAlmostForget={arrayAlmostForget}
+            arrayAlmostForgot={arrayAlmostForgot}
             arrayZap={arrayZap}
             arrayAnswered={arrayAnswered}
           />)}
@@ -50,8 +50,8 @@ function App() {
           numberOfQuestions={numberOfQuestions}
           arrayForgotIt={arrayForgotIt}
           setArrayForgotIt={setArrayForgotIt}
-          arrayAlmostForget={arrayAlmostForget}
-          setArrayAlmostForget={setArrayAlmostForget}
+          arrayAlmostForgot={arrayAlmostForgot}
+          setArrayAlmostForgot={setArrayAlmostForgot}
           arrayZap={arrayZap}
           setArrayZap={setArrayZap}
           currentCard={currentCard}
@@ -79,9 +79,8 @@ const ScreenContainer = styled.div`
         `
 
 const CardsContainer = styled.div`
-        max-height: 400px;
         overflow-y: auto;
-        margin-top: 26px;
+        margin-top: 130px;
         &::-webkit-scrollbar {
           display: none;
   }

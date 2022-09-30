@@ -1,18 +1,30 @@
 import styled from "styled-components"
 
-export default function Logo({logo}) {
-    return (
-      <LogoContainer>
+export default function Logo({ logo }) {
+  return (
+    <LogoContainer>
+      <div>
         <img src={logo} alt="ZapRecall logo" />
         <h1>ZapRecall</h1>
-      </LogoContainer>
-    )
-  }
+      </div>
+    </LogoContainer>
+  )
+}
 
-  const LogoContainer = styled.div`
-        display: flex;
-        align-items: center;
-        margin: 40px 0 20px 0;
+const LogoContainer = styled.div`
+        width: 100%;
+        height: 110px;
+        position: fixed;
+        top:0;
+        z-index: 1;
+        background-color: #fb6b6b;
+        div {
+          height: 60px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          margin-top: 50px;
+        }
         img {
           width: 52px;
         }

@@ -1,7 +1,7 @@
 import { useState } from "react"
 import styled from "styled-components"
 
-export default function Footer({ numberOfQuestions, arrayForgotIt, setArrayForgotIt, arrayAlmostForget, setArrayAlmostForget, arrayZap, setArrayZap, currentCard, setCurrentCard, arrayAnswered, setArrayAnswered }) {
+export default function Footer({ numberOfQuestions, arrayForgotIt, setArrayForgotIt, arrayAlmostForgot, setArrayAlmostForgot, arrayZap, setArrayZap, currentCard, setCurrentCard, arrayAnswered, setArrayAnswered }) {
     const [numberOfAnswers, setNumberOfAnswers] = useState(0)
 
     function forgotIt() {
@@ -18,12 +18,12 @@ export default function Footer({ numberOfQuestions, arrayForgotIt, setArrayForgo
         }
     }
 
-    function almostForget() {
+    function almostForgot() {
         if (currentCard !== undefined) {
             const newArrayAnswered = [...arrayAnswered, currentCard]
             setArrayAnswered(newArrayAnswered)
-            const newArrayAlmostForget = [...arrayAlmostForget, currentCard]
-            setArrayAlmostForget(newArrayAlmostForget)
+            const newArrayAlmostForgot = [...arrayAlmostForgot, currentCard]
+            setArrayAlmostForgot(newArrayAlmostForgot)
             const newNumberOfAnswers = numberOfAnswers + 1
             setNumberOfAnswers(newNumberOfAnswers)
             setCurrentCard()
@@ -48,12 +48,12 @@ export default function Footer({ numberOfQuestions, arrayForgotIt, setArrayForgo
 
     return (
         <FooterContainer>
-            <ButtonsContainer>
-                <button onClick={() => forgotIt()}>Não<br />lembrei</button>
-                <button onClick={() => almostForget()}>Quase não<br />lembrei</button>
-                <button onClick={() => zap()}>Zap</button>
+            <ButtonsContainer cursorPointer={currentCard !== undefined}>
+                <button data-identifier="forgot-btn" onClick={() => forgotIt()}>Não<br />lembrei</button>
+                <button data-identifier="almost-forgot-btn" onClick={() => almostForgot()}>Quase não<br />lembrei</button>
+                <button data-identifier="zap-btn" onClick={() => zap()}>Zap</button>
             </ButtonsContainer>
-            <p>{numberOfAnswers}/{numberOfQuestions} CONCLUÍDOS</p>
+            <p data-identifier="flashcard-counter">{numberOfAnswers}/{numberOfQuestions} CONCLUÍDOS</p>
         </FooterContainer>
     )
 }
@@ -61,6 +61,7 @@ export default function Footer({ numberOfQuestions, arrayForgotIt, setArrayForgo
 const FooterContainer = styled.div`
         width: 100%;
         min-height: 50px;
+        height: 120px;
         background-color: #ffffff;
         position: fixed;
         bottom: 0;
@@ -94,6 +95,7 @@ const ButtonsContainer = styled.div`
           background: blue;
           border-radius: 5px;
           padding: 5px;
+          cursor: ${props => props.cursorPointer ? "pointer" : "initial"};
           &:nth-child(n + 1) {
             background-color: #FF3030;
             border: 1px solid #FF3030;

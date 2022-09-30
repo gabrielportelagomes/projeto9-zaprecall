@@ -1,7 +1,7 @@
 import { useState } from "react"
 import styled, { css } from "styled-components"
 
-export default function Card({ question, answer, index, number, iconsCard, currentCard, setCurrentCard, arrayForgotIt, arrayAlmostForget, arrayZap, arrayAnswered}) {
+export default function Card({ question, answer, index, number, iconsCard, currentCard, setCurrentCard, arrayForgotIt, arrayAlmostForgot, arrayZap, arrayAnswered}) {
   const [cardText, setCardText] = useState("Pergunta " + number)
   const [icon, setIcon] = useState(iconsCard[0])
   const [open, setOpen] = useState(false)
@@ -23,9 +23,9 @@ export default function Card({ question, answer, index, number, iconsCard, curre
   }
 
   return (
-    <CardStyle open={open} icon={icon} includesCard={arrayAnswered.includes(index)} includesForgotIt={arrayForgotIt.includes(index)} includesAlmostForget={arrayAlmostForget.includes(index)} includesZap={arrayZap.includes(index)}>
-      <p>{arrayAnswered.includes(index) ? initialCardText : cardText}</p>
-      <img src={arrayForgotIt.includes(index) ? iconsCard[2] : arrayAlmostForget.includes(index) ? iconsCard[3] : arrayZap.includes(index) ? iconsCard[4] : icon} alt="play button" onClick={() => play(index)} />
+    <CardStyle data-identifier="flashcard" open={open} icon={icon} includesCard={arrayAnswered.includes(index)} includesForgotIt={arrayForgotIt.includes(index)} includesAlmostForgot={arrayAlmostForgot.includes(index)} includesZap={arrayZap.includes(index)}>
+      <p data-identifier={arrayAnswered.includes(index) ? "flashcard-index-item" : cardText === question ? "flashcard-question" : cardText === answer ? "flashcard-answer" : "flashcard-index-item"}>{arrayAnswered.includes(index) ? initialCardText : cardText}</p>
+      <img data-identifier={icon === iconsCard[0] ? "flashcard-show-btn" : icon === iconsCard[1] ? "flashcard-turn-btn" : "flashcard-status"} src={arrayForgotIt.includes(index) ? iconsCard[2] : arrayAlmostForgot.includes(index) ? iconsCard[3] : arrayZap.includes(index) ? iconsCard[4] : icon} alt="play button" onClick={() => play(index)} />
     </CardStyle>
   )
 }
@@ -110,7 +110,7 @@ const CardStyle = styled.div`
           color: ${(props) => {
             if(props.includesForgotIt === true) {
               return "#FF3030"
-            } else if(props.includesAlmostForget === true) {
+            } else if(props.includesAlmostForgot === true) {
               return "#FF922E"
             } else if(props.includesZap) {
               return "#2FBE34"
