@@ -13,13 +13,9 @@ import Footer from "./Footer.js"
 import DECK1 from "../deck1.js"
 
 
-export default function ScreenDeck({logo}) {
+export default function ScreenDeck({ logo }) {
     const numberOfQuestions = DECK1.length
-    const [arrayForgotIt, setArrayForgotIt] = useState([])
-    const [arrayAlmostForgot, setArrayAlmostForgot] = useState([])
-    const [arrayZap, setArrayZap] = useState([])
-    const [currentCard, setCurrentCard] = useState()
-    const [arrayAnswered, setArrayAnswered] = useState([])
+    const [numberOfAnswers, setNumberOfAnswers] = useState(0)
 
     const iconsCard = [seta_play, seta_virar, icone_erro, icone_quase, icone_certo]
 
@@ -34,26 +30,13 @@ export default function ScreenDeck({logo}) {
                     index={index}
                     number={index + 1}
                     iconsCard={iconsCard}
-                    currentCard={currentCard}
-                    setCurrentCard={setCurrentCard}
-                    arrayForgotIt={arrayForgotIt}
-                    arrayAlmostForgot={arrayAlmostForgot}
-                    arrayZap={arrayZap}
-                    arrayAnswered={arrayAnswered}
+                    setNumberOfAnswers={setNumberOfAnswers}
+                    numberOfAnswers={numberOfAnswers}
                 />)}
             </CardsContainer>
             <Footer
                 numberOfQuestions={numberOfQuestions}
-                arrayForgotIt={arrayForgotIt}
-                setArrayForgotIt={setArrayForgotIt}
-                arrayAlmostForgot={arrayAlmostForgot}
-                setArrayAlmostForgot={setArrayAlmostForgot}
-                arrayZap={arrayZap}
-                setArrayZap={setArrayZap}
-                currentCard={currentCard}
-                setCurrentCard={setCurrentCard}
-                arrayAnswered={arrayAnswered}
-                setArrayAnswered={setArrayAnswered}
+                numberOfAnswers={numberOfAnswers}
             />
         </ScreenContainer>
     )

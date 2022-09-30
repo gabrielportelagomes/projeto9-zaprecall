@@ -1,11 +1,61 @@
 import { useState } from "react"
 import styled, { css } from "styled-components"
 
-export default function Card({ question, answer, index, number, iconsCard, currentCard, setCurrentCard, arrayForgotIt, arrayAlmostForgot, arrayZap, arrayAnswered}) {
+export default function Card({ question, answer, index, number, iconsCard, setNumberOfAnswers, numberOfAnswers }) {
   const [cardText, setCardText] = useState("Pergunta " + number)
   const [icon, setIcon] = useState(iconsCard[0])
   const [open, setOpen] = useState(false)
+  const [arrayForgotIt, setArrayForgotIt] = useState([])
+  const [arrayAlmostForgot, setArrayAlmostForgot] = useState([])
+  const [arrayZap, setArrayZap] = useState([])
+  const [currentCard, setCurrentCard] = useState()
+  const [arrayAnswered, setArrayAnswered] = useState([])
   const initialCardText = ("Pergunta " + number)
+
+  function forgotIt() {
+    if (currentCard !== undefined) {
+      const newArrayAnswered = [...arrayAnswered, currentCard]
+      setArrayAnswered(newArrayAnswered)
+      const newArrayForgotIt = [...arrayForgotIt, currentCard]
+      setArrayForgotIt(newArrayForgotIt)
+      const newNumberOfAnswers = numberOfAnswers + 1
+      setNumberOfAnswers(newNumberOfAnswers)
+      setCurrentCard()
+      setIcon()
+    } else {
+      alert("Selecione um cartão e chegue na resposta")
+    }
+  }
+
+  function almostForgot() {
+    if (currentCard !== undefined) {
+      const newArrayAnswered = [...arrayAnswered, currentCard]
+      setArrayAnswered(newArrayAnswered)
+      const newArrayAlmostForgot = [...arrayAlmostForgot, currentCard]
+      setArrayAlmostForgot(newArrayAlmostForgot)
+      const newNumberOfAnswers = numberOfAnswers + 1
+      setNumberOfAnswers(newNumberOfAnswers)
+      setCurrentCard()
+      setIcon()
+    } else {
+      alert("Selecione um cartão e chegue na resposta")
+    }
+  }
+
+  function zap() {
+    if (currentCard !== undefined) {
+      const newArrayAnswered = [...arrayAnswered, currentCard]
+      setArrayAnswered(newArrayAnswered)
+      const newArrayZap = [...arrayZap, currentCard]
+      setArrayZap(newArrayZap)
+      const newNumberOfAnswers = numberOfAnswers + 1
+      setNumberOfAnswers(newNumberOfAnswers)
+      setCurrentCard()
+      setIcon()
+    } else {
+      alert("Selecione um cartão e chegue na resposta")
+    }
+  }
 
   function play(index) {
     if (currentCard === undefined) {
@@ -26,6 +76,11 @@ export default function Card({ question, answer, index, number, iconsCard, curre
     <CardStyle data-identifier="flashcard" open={open} icon={icon} includesCard={arrayAnswered.includes(index)} includesForgotIt={arrayForgotIt.includes(index)} includesAlmostForgot={arrayAlmostForgot.includes(index)} includesZap={arrayZap.includes(index)}>
       <p data-identifier={arrayAnswered.includes(index) ? "flashcard-index-item" : cardText === question ? "flashcard-question" : cardText === answer ? "flashcard-answer" : "flashcard-index-item"}>{arrayAnswered.includes(index) ? initialCardText : cardText}</p>
       <img data-identifier={icon === iconsCard[0] ? "flashcard-show-btn" : icon === iconsCard[1] ? "flashcard-turn-btn" : "flashcard-status"} src={arrayForgotIt.includes(index) ? iconsCard[2] : arrayAlmostForgot.includes(index) ? iconsCard[3] : arrayZap.includes(index) ? iconsCard[4] : icon} alt="play button" onClick={() => play(index)} />
+      <ButtonsContainer cursorPointer={currentCard !== undefined} display={icon === null ? "flex" : "none"}>
+        <button data-identifier="forgot-btn" onClick={() => forgotIt()}>Não<br />lembrei</button>
+        <button data-identifier="almost-forgot-btn" onClick={() => almostForgot()}>Quase não<br />lembrei</button>
+        <button data-identifier="zap-btn" onClick={() => zap()}>Zap</button>
+      </ButtonsContainer>
     </CardStyle>
   )
 }
@@ -108,18 +163,54 @@ const CardStyle = styled.div`
           line-height: 19px;
           text-decoration: line-through;
           color: ${(props) => {
-            if(props.includesForgotIt === true) {
-              return "#FF3030"
-            } else if(props.includesAlmostForgot === true) {
-              return "#FF922E"
-            } else if(props.includesZap) {
-              return "#2FBE34"
-            }
-          }};
+      if (props.includesForgotIt === true) {
+        return "#FF3030"
+      } else if (props.includesAlmostForgot === true) {
+        return "#FF922E"
+      } else if (props.includesZap) {
+        return "#2FBE34"
+      }
+    }};
         }
         img {
           position: initial;
           display: initial;
           cursor: initial
         }`
-    }`
+  }`
+
+const ButtonsContainer = styled.div`
+        display: ${props => props.display};
+        width: 100%;
+        justify-content: space-between;
+        margin-top: 26px;
+        button {
+          width: 85px;
+          font-family: "Recursive";
+          font-style: normal;
+          font-weight: 400;
+          font-size: 12px;
+          line-height: 14px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          text-align: center;
+          color: #ffffff;
+          background: blue;
+          border-radius: 5px;
+          padding: 5px;
+          cursor: ${props => props.cursorPointer ? "pointer" : "initial"};
+          &:nth-child(n + 1) {
+            background-color: #FF3030;
+            border: 1px solid #FF3030;
+          }
+          &:nth-child(n + 2) {
+            background-color: #FF922E;
+            border: 1px solid #FF922E;
+          }
+          &:nth-child(n + 3) {
+            background-color: #2FBE34;
+            border: 1px solid #2FBE34;
+          }
+        }
+        `

@@ -6,7 +6,7 @@ import logo from "../assets/img/logo.png"
 
 
 function App() {
-  const [start, setStart] = useState(false)
+  const [start, setStart] = useState(/* false */true)
   return (
     <>
       <GlobalStyle />
