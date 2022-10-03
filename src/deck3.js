@@ -1,5 +1,9 @@
-const DECK1 = [
-  { Q: "O que é JSX?", A: "Uma extensão de linguagem do JavaScript" },
+const DECK3 = [
+  {
+    Q: "Usamos estado (state) para __",
+    A:
+      "dizer para o React quais informações quando atualizadas devem renderizar a tela novamente"
+  },
   {
     Q: "O React é __",
     A: "uma biblioteca JavaScript para construção de interfaces"
@@ -10,6 +14,7 @@ const DECK1 = [
     Q: "O ReactDOM nos ajuda __",
     A: "interagindo com a DOM para colocar componentes React na mesma"
   },
+  { Q: "", A: "Uma extensão de linguagem do JavaScript" },
   {
     Q: "Usamos o npm para __",
     A: "gerenciar os pacotes necessários e suas dependências"
@@ -17,12 +22,7 @@ const DECK1 = [
   {
     Q: "Usamos props para __",
     A: "passar diferentes informações para componentes"
-  },
-  {
-    Q: "Usamos estado (state) para __",
-    A:
-      "dizer para o React quais informações quando atualizadas devem renderizar a tela novamente"
   }
 ];
 
-export default DECK1
+export default DECK3

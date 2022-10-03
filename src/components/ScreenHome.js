@@ -1,14 +1,26 @@
 import styled from "styled-components"
 
-export default function ScreenHome({logo, setStart}) {
+export default function ScreenHome({ logo, setStart, select, setSelect, DECK1 }) {
     function startRecall() {
-        setStart(true)
+        if (select !== "") {
+            setStart(true)
+            alert(select)
+        }
     }
 
-    return(
-        <ScreenContainer>
-            <img src={logo} alt="Zap logo"/>
+    return (
+        <ScreenContainer select={select}>
+            <img src={logo} alt="Zap logo" />
             <h1>ZapRecall</h1>
+            <div>
+                <select value={select} onChange={selected => setSelect(selected.target.value)}>
+                    <option value="">Escolha seu deck</option>
+                    <option value="0">Deck 1</option>
+                    <option value="1">Deck 2</option>
+                    <option value="2">Deck 3</option>
+                    <option value="3">Deck 4</option>
+                </select>
+            </div>
             <button data-identifier="start-btn" onClick={() => startRecall()}>Iniciar Recall!</button>
         </ScreenContainer>
     )
@@ -36,19 +48,28 @@ const ScreenContainer = styled.div`
           font-size: 36px;
           line-height: 45px;
           color: #ffffff;
-          margin-bottom: 30px;
+          margin-bottom: 25px;
+        }
+        select {
+            width: 246px;
+            height: 43px;
+            background-color: #ffffff;
+            border-radius: 5px;
+            border: none;
+            margin-bottom: 18px;
+            cursor: pointer;
         }
         button {
             width: 246px;
             height: 54px;
-            background-color: #ffffff;
+            background-color: ${props => props.select === "" ? "#E8E8E8" : "#ffffff"};
             border-radius: 5px;
-            border: 1px solid #D70900;
+            border: ${props => props.select === "" ? "none" : "1px solid #D70900"};
             box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.15);
-            color: #D70900;
+            color: ${props => props.select === "" ? "#C0C0C0" : "#D70900"};
             font-family: Recursive;
             font-weight: 400;
             font-size: 18px;
-            cursor: pointer;
+            cursor: ${props => props.select === "" ? "initial" : "pointer"};
         }
         `

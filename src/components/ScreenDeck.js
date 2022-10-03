@@ -11,10 +11,14 @@ import Logo from "./Logo.js"
 import Card from "./Card.js"
 import Footer from "./Footer.js"
 import DECK1 from "../deck1.js"
+import DECK2 from "../deck2.js"
+import DECK3 from "../deck3.js"
+import DECK4 from "../deck4.js"
 
 
-export default function ScreenDeck({ logo }) {
-    const numberOfQuestions = DECK1.length
+export default function ScreenDeck({ logo, select}) {
+    const decks = [DECK1, DECK2, DECK3, DECK4]
+    const numberOfQuestions = decks[select].length
     const iconsCard = [seta_play, seta_virar, icone_erro, icone_quase, icone_certo]
     const initialArrayAnswerIcons = Array(numberOfQuestions).fill(null)
     const [arrayAnswerIcons, ] = useState(initialArrayAnswerIcons)
@@ -25,7 +29,7 @@ export default function ScreenDeck({ logo }) {
         <ScreenContainer>
             <Logo logo={logo} />
             <CardsContainer>
-                {DECK1.map((d, index) => <Card
+                {decks[select].map((d, index) => <Card
                     key={index}
                     question={d.Q}
                     answer={d.A}

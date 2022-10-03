@@ -6,11 +6,12 @@ import logo from "../assets/img/logo.png"
 
 
 function App() {
-  const [start, setStart] = useState(/* false */true)
+  const [start, setStart] = useState(false)
+  const [select, setSelect] = useState("")
   return (
     <>
       <GlobalStyle />
-      {start === false ? <ScreenHome logo={logo} setStart={setStart} /> : <ScreenDeck logo={logo} /> }
+      {start === false ? <ScreenHome logo={logo} setStart={setStart} select={select} setSelect={setSelect}/> : <ScreenDeck logo={logo} select={select}/> }
     </>
   )
 }
