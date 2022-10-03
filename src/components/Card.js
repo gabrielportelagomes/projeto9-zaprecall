@@ -1,7 +1,7 @@
 import { useState } from "react"
 import styled, { css } from "styled-components"
 
-export default function Card({ question, answer, index, number, iconsCard, setNumberOfAnswers, numberOfAnswers }) {
+export default function Card({ question, answer, index, number, iconsCard, setNumberOfAnswers, numberOfAnswers, arrayAnswerIcons, setFooterOpen }) {
   const [cardText, setCardText] = useState("Pergunta " + number)
   const [icon, setIcon] = useState(iconsCard[0])
   const [open, setOpen] = useState(false)
@@ -12,7 +12,7 @@ export default function Card({ question, answer, index, number, iconsCard, setNu
   const [arrayAnswered, setArrayAnswered] = useState([])
   const initialCardText = ("Pergunta " + number)
 
-  function forgotIt() {
+  function forgotIt(index) {
     if (currentCard !== undefined) {
       const newArrayAnswered = [...arrayAnswered, currentCard]
       setArrayAnswered(newArrayAnswered)
@@ -22,12 +22,14 @@ export default function Card({ question, answer, index, number, iconsCard, setNu
       setNumberOfAnswers(newNumberOfAnswers)
       setCurrentCard()
       setIcon()
+      arrayAnswerIcons[index] = iconsCard[2]
+      setFooterOpen(true)
     } else {
       alert("Selecione um cartão e chegue na resposta")
     }
   }
 
-  function almostForgot() {
+  function almostForgot(index) {
     if (currentCard !== undefined) {
       const newArrayAnswered = [...arrayAnswered, currentCard]
       setArrayAnswered(newArrayAnswered)
@@ -37,12 +39,14 @@ export default function Card({ question, answer, index, number, iconsCard, setNu
       setNumberOfAnswers(newNumberOfAnswers)
       setCurrentCard()
       setIcon()
+      arrayAnswerIcons[index] = iconsCard[3]
+      setFooterOpen(true)
     } else {
       alert("Selecione um cartão e chegue na resposta")
     }
   }
 
-  function zap() {
+  function zap(index) {
     if (currentCard !== undefined) {
       const newArrayAnswered = [...arrayAnswered, currentCard]
       setArrayAnswered(newArrayAnswered)
@@ -52,6 +56,8 @@ export default function Card({ question, answer, index, number, iconsCard, setNu
       setNumberOfAnswers(newNumberOfAnswers)
       setCurrentCard()
       setIcon()
+      arrayAnswerIcons[index] = iconsCard[4]
+      setFooterOpen(true)
     } else {
       alert("Selecione um cartão e chegue na resposta")
     }
@@ -75,11 +81,11 @@ export default function Card({ question, answer, index, number, iconsCard, setNu
   return (
     <CardStyle data-identifier="flashcard" open={open} icon={icon} includesCard={arrayAnswered.includes(index)} includesForgotIt={arrayForgotIt.includes(index)} includesAlmostForgot={arrayAlmostForgot.includes(index)} includesZap={arrayZap.includes(index)}>
       <p data-identifier={arrayAnswered.includes(index) ? "flashcard-index-item" : cardText === question ? "flashcard-question" : cardText === answer ? "flashcard-answer" : "flashcard-index-item"}>{arrayAnswered.includes(index) ? initialCardText : cardText}</p>
-      <img data-identifier={icon === iconsCard[0] ? "flashcard-show-btn" : icon === iconsCard[1] ? "flashcard-turn-btn" : "flashcard-status"} src={arrayForgotIt.includes(index) ? iconsCard[2] : arrayAlmostForgot.includes(index) ? iconsCard[3] : arrayZap.includes(index) ? iconsCard[4] : icon} alt="play button" onClick={() => play(index)} />
+      <img data-identifier={icon === iconsCard[0] ? "flashcard-show-btn" : icon === iconsCard[1] ? "flashcard-turn-btn" : "flashcard-status"} src={arrayForgotIt.includes(index) ? iconsCard[2] : arrayAlmostForgot.includes(index) ? iconsCard[3] : arrayZap.includes(index) ? iconsCard[4] : icon} alt="icon" onClick={() => play(index)} />
       <ButtonsContainer cursorPointer={currentCard !== undefined} display={icon === null ? "flex" : "none"}>
-        <button data-identifier="forgot-btn" onClick={() => forgotIt()}>Não<br />lembrei</button>
-        <button data-identifier="almost-forgot-btn" onClick={() => almostForgot()}>Quase não<br />lembrei</button>
-        <button data-identifier="zap-btn" onClick={() => zap()}>Zap</button>
+        <button data-identifier="forgot-btn" onClick={() => forgotIt(index)}>Não<br />lembrei</button>
+        <button data-identifier="almost-forgot-btn" onClick={() => almostForgot(index)}>Quase não<br />lembrei</button>
+        <button data-identifier="zap-btn" onClick={() => zap(index)}>Zap</button>
       </ButtonsContainer>
     </CardStyle>
   )

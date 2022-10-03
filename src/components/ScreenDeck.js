@@ -15,10 +15,12 @@ import DECK1 from "../deck1.js"
 
 export default function ScreenDeck({ logo }) {
     const numberOfQuestions = DECK1.length
-    const [numberOfAnswers, setNumberOfAnswers] = useState(0)
-
     const iconsCard = [seta_play, seta_virar, icone_erro, icone_quase, icone_certo]
-
+    const initialArrayAnswerIcons = Array(numberOfQuestions).fill(null)
+    const [arrayAnswerIcons, ] = useState(initialArrayAnswerIcons)
+    const [numberOfAnswers, setNumberOfAnswers] = useState(0)
+    const [footerOpen, setFooterOpen] = useState(false)
+    
     return (
         <ScreenContainer>
             <Logo logo={logo} />
@@ -32,11 +34,16 @@ export default function ScreenDeck({ logo }) {
                     iconsCard={iconsCard}
                     setNumberOfAnswers={setNumberOfAnswers}
                     numberOfAnswers={numberOfAnswers}
+                    arrayAnswerIcons={arrayAnswerIcons}
+                    setFooterOpen={setFooterOpen}
                 />)}
             </CardsContainer>
             <Footer
                 numberOfQuestions={numberOfQuestions}
                 numberOfAnswers={numberOfAnswers}
+                arrayAnswerIcons={arrayAnswerIcons}
+                footerOpen={footerOpen}
+                
             />
         </ScreenContainer>
     )
