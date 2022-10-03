@@ -12,7 +12,7 @@ export default function ScreenHome({ logo, deckIndex, setDeckIndex, setStart, se
             <img src={logo} alt="Zap logo" />
             <h1>ZapRecall</h1>
             <div>
-                <select value={deckIndex} onChange={selected => setDeckIndex(selected.target.value)}>
+                <select value={deckIndex} onChange={selected => setDeckIndex(selected.target.value)} data-identifier="deck-selector">
                     <option value="">Escolha seu deck</option>
                     <option value="0">Deck 1</option>
                     <option value="1">Deck 2</option>
@@ -20,7 +20,7 @@ export default function ScreenHome({ logo, deckIndex, setDeckIndex, setStart, se
                     <option value="3">Deck 4</option>
                 </select>
             </div>
-            <input placeholder="Digite sua meta de zaps..." onChange={e => setGoal(e.target.value)}></input>
+            <input placeholder="Digite sua meta de zaps..." onChange={e => setGoal(e.target.value)} data-identifier="goals-input"></input>
             <button data-identifier="start-btn" onClick={() => deck()}>Iniciar Recall!</button>
         </ScreenContainer>
     )
