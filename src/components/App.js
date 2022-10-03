@@ -6,12 +6,14 @@ import logo from "../assets/img/logo.png"
 
 
 function App() {
+  const [deckIndex, setDeckIndex] = useState("")
   const [start, setStart] = useState(false)
-  const [select, setSelect] = useState("")
+  const [goal, setGoal] = useState(null)
+  
   return (
     <>
       <GlobalStyle />
-      {start === false ? <ScreenHome logo={logo} setStart={setStart} select={select} setSelect={setSelect}/> : <ScreenDeck logo={logo} select={select}/> }
+      {start === false ? <ScreenHome logo={logo} deckIndex={deckIndex} setDeckIndex={setDeckIndex} setStart={setStart} setGoal={setGoal} goal={goal}/> : <ScreenDeck logo={logo} deckIndex={deckIndex} goal={goal}/> }
     </>
   )
 }

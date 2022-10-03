@@ -14,15 +14,7 @@ const DECK3 = [
     Q: "O ReactDOM nos ajuda __",
     A: "interagindo com a DOM para colocar componentes React na mesma"
   },
-  { Q: "", A: "Uma extensão de linguagem do JavaScript" },
-  {
-    Q: "Usamos o npm para __",
-    A: "gerenciar os pacotes necessários e suas dependências"
-  },
-  {
-    Q: "Usamos props para __",
-    A: "passar diferentes informações para componentes"
-  }
+  { Q: "O que é JSX?", A: "Uma extensão de linguagem do JavaScript" }
 ];
 
 export default DECK3

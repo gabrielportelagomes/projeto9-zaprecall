@@ -9,7 +9,7 @@ const DECK2 = [
     Q: "O ReactDOM nos ajuda __",
     A: "interagindo com a DOM para colocar componentes React na mesma"
   },
-  { Q: "", A: "Uma extensão de linguagem do JavaScript" },
+  { Q: "O que é JSX?", A: "Uma extensão de linguagem do JavaScript" },
   {
     Q: "Usamos o npm para __",
     A: "gerenciar os pacotes necessários e suas dependências"
@@ -17,11 +17,6 @@ const DECK2 = [
   {
     Q: "Usamos props para __",
     A: "passar diferentes informações para componentes"
-  },
-  {
-    Q: "Usamos estado (state) para __",
-    A:
-      "dizer para o React quais informações quando atualizadas devem renderizar a tela novamente"
   }
 ];
 

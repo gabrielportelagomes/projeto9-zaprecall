@@ -1,7 +1,7 @@
 import { useState } from "react"
 import styled, { css } from "styled-components"
 
-export default function Card({ question, answer, index, number, iconsCard, setNumberOfAnswers, numberOfAnswers, arrayAnswerIcons, setFooterOpen }) {
+export default function Card({ question, answer, index, number, iconsCard, setNumberOfAnswers, numberOfAnswers, arrayAnswerIcons, setFooterOpen, numberOfQuestions, setResult, goal, numberZaps, setNumberZaps}) {
   const [cardText, setCardText] = useState("Pergunta " + number)
   const [icon, setIcon] = useState(iconsCard[0])
   const [open, setOpen] = useState(false)
@@ -24,9 +24,14 @@ export default function Card({ question, answer, index, number, iconsCard, setNu
       setIcon()
       arrayAnswerIcons[index] = iconsCard[2]
       setFooterOpen(true)
-    } else {
-      alert("Selecione um cartão e chegue na resposta")
-    }
+      if (newNumberOfAnswers === numberOfQuestions) {
+        if (numberZaps >= goal) {
+          setResult(["Parabéns ", iconsCard[5]])
+        } else {
+          setResult(["Putz ", iconsCard[6]])
+        }
+      }
+    } 
   }
 
   function almostForgot(index) {
@@ -41,8 +46,13 @@ export default function Card({ question, answer, index, number, iconsCard, setNu
       setIcon()
       arrayAnswerIcons[index] = iconsCard[3]
       setFooterOpen(true)
-    } else {
-      alert("Selecione um cartão e chegue na resposta")
+      if (newNumberOfAnswers === numberOfQuestions) {
+        if (numberZaps >= goal) {
+          setResult(["Parabéns ", iconsCard[5]])
+        } else {
+          setResult(["Putz ", iconsCard[6]])
+        }
+      }
     }
   }
 
@@ -58,9 +68,16 @@ export default function Card({ question, answer, index, number, iconsCard, setNu
       setIcon()
       arrayAnswerIcons[index] = iconsCard[4]
       setFooterOpen(true)
-    } else {
-      alert("Selecione um cartão e chegue na resposta")
-    }
+      const newNumberZaps = (numberZaps + 1)
+      setNumberZaps(newNumberZaps)
+      if (newNumberOfAnswers === numberOfQuestions) {
+        if (newNumberZaps >= goal) {
+          setResult(["Parabéns ", iconsCard[5]])
+        } else {
+          setResult(["Putz ", iconsCard[6]])
+        }
+      }
+    } 
   }
 
   function play(index) {

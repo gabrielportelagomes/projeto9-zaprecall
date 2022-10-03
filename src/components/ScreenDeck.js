@@ -16,20 +16,22 @@ import DECK3 from "../deck3.js"
 import DECK4 from "../deck4.js"
 
 
-export default function ScreenDeck({ logo, select}) {
+export default function ScreenDeck({ logo, deckIndex, goal}) {
     const decks = [DECK1, DECK2, DECK3, DECK4]
-    const numberOfQuestions = decks[select].length
-    const iconsCard = [seta_play, seta_virar, icone_erro, icone_quase, icone_certo]
+    const numberOfQuestions = decks[deckIndex].length
+    const iconsCard = [seta_play, seta_virar, icone_erro, icone_quase, icone_certo, party, sad]
     const initialArrayAnswerIcons = Array(numberOfQuestions).fill(null)
     const [arrayAnswerIcons, ] = useState(initialArrayAnswerIcons)
     const [numberOfAnswers, setNumberOfAnswers] = useState(0)
     const [footerOpen, setFooterOpen] = useState(false)
+    const [numberZaps, setNumberZaps] = useState(0)
+    const [result, setResult] = useState([null])
     
     return (
         <ScreenContainer>
             <Logo logo={logo} />
             <CardsContainer>
-                {decks[select].map((d, index) => <Card
+                {decks[deckIndex].map((d, index) => <Card
                     key={index}
                     question={d.Q}
                     answer={d.A}
@@ -40,6 +42,11 @@ export default function ScreenDeck({ logo, select}) {
                     numberOfAnswers={numberOfAnswers}
                     arrayAnswerIcons={arrayAnswerIcons}
                     setFooterOpen={setFooterOpen}
+                    numberOfQuestions={numberOfQuestions}
+                    setResult={setResult}
+                    goal={goal}
+                    numberZaps={numberZaps}
+                    setNumberZaps={setNumberZaps}
                 />)}
             </CardsContainer>
             <Footer
@@ -47,7 +54,7 @@ export default function ScreenDeck({ logo, select}) {
                 numberOfAnswers={numberOfAnswers}
                 arrayAnswerIcons={arrayAnswerIcons}
                 footerOpen={footerOpen}
-                
+                result={result}
             />
         </ScreenContainer>
     )
